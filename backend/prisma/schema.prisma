@@ -1,0 +1,113 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  role      UserRole @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Campaign {
+  id          String         @id @default(cuid())
+  name        String
+  platform    Platform
+  status      CampaignStatus @default(ACTIVE)
+  budget      Float
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  metrics Metric[]
+
+  @@map("campaigns")
+}
+
+model Metric {
+  id           String   @id @default(cuid())
+  campaignId   String
+  date         DateTime
+  impressions  Int      @default(0)
+  clicks       Int      @default(0)
+  cost         Float    @default(0)
+  conversions  Int      @default(0)
+  revenue      Float    @default(0)
+  ctr          Float    @default(0)
+  cpc          Float    @default(0)
+  roas         Float    @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, date])
+  @@map("metrics")
+}
+
+model IntegrationConfig {
+  id        String   @id @default(cuid())
+  platform  Platform
+  config    Json
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([platform])
+  @@map("integration_configs")
+}
+
+model AIInsight {
+  id          String        @id @default(cuid())
+  type        InsightType
+  title       String
+  description String
+  priority    InsightPriority @default(MEDIUM)
+  campaignId  String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@map("ai_insights")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+enum Platform {
+  GOOGLE
+  META
+  TIKTOK
+}
+
+enum CampaignStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+}
+
+enum InsightType {
+  RECOMMENDATION
+  ALERT
+  OPTIMIZATION
+}
+
+enum InsightPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
