@@ -192,26 +192,5 @@ A aplicação possui uma interface moderna e responsiva com:
 4. **Relatórios**: Exportação de dados em PDF/Excel
 5. **IA Avançada**: Machine Learning para otimização
 
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
-
-## 📞 Suporte
-
-Para dúvidas ou problemas:
-- Abra uma issue no GitHub
-- Consulte a documentação da API
-- Verifique os logs do servidor
-
----
-
 **Desenvolvido com ❤️ para análise de campanhas publicitárias** 
 **Desenvolvido com ❤️ para análise de campanhas publicitárias** 
